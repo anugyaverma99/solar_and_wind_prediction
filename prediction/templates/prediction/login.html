@@ -1,0 +1,99 @@
+{% extends 'prediction/base.html' %}
+
+{% block content %}
+<style>
+  /* Apply flex and centering to this container only */
+  .page-container {
+    background: linear-gradient(135deg, #0a1e2b, #122a3c);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #cceeff;
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 40px 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(15px);
+    width: 320px;
+    text-align: center;
+  }
+  h2 {
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  label {
+    display: block;
+    margin: 15px 0 6px 0;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: left;
+  }
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0f7ff;
+    font-size: 1rem;
+    outline: none;
+    transition: background 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #1ca9c9;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #1390b4;
+  }
+  p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #a0cfe9;
+  }
+  a {
+    color: #50b7e0;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="page-container">
+  <div class="glass-card">
+    <h2>Login</h2>
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+  </div>
+</div>
+{% endblock %}

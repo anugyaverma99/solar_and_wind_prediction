@@ -1,0 +1,115 @@
+{% extends 'prediction/base.html' %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #0a1e2b, #122a3c);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #cceeff;
+    display: flex;
+    flex-direction: column; /* make children stack vertically */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 60 px;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 40px 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(15px);
+    width: 480px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* stack inside elements vertically */
+  }
+
+  h2 {
+    margin-bottom: 25px;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #e0f7ff;
+  }
+
+  label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0f7ff;
+    font-size: 1rem;
+    outline: none;
+    transition: background 0.3s ease;
+  }
+
+  input[type="number"]:focus,
+  input[type="text"]:focus {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #1ca9c9;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #1390b4;
+  }
+
+  .result {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px 20px;
+    color: #b8e4ff;
+    text-align: left;
+  }
+
+  .result p {
+    margin: 8px 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .result p strong {
+    color: #50b7e0;
+  }
+</style>
+
+<div class="container">
+  <h2>Predict Wind and Solar Energy Output</h2>
+  <form method="post" action="{% url 'predict_energy' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if prediction %}
+    <div class="result">
+      <p><strong>Predicted Wind Power:</strong> {{ prediction.wind_power }} kW</p>
+      <p><strong>Predicted Solar Power:</strong> {{ prediction.solar_power }} kW</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
