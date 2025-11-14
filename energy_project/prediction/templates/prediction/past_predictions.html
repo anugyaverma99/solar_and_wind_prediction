@@ -1,0 +1,108 @@
+{% extends 'prediction/base.html' %}
+
+{% block content %}
+<style>
+  .container {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+    color: #d1e8ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    color: #1ca9c9;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(28, 169, 201, 0.4);
+  }
+
+  th, td {
+    padding: 14px 16px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #1ca9c9;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  tr:hover {
+    background: rgba(28, 169, 201, 0.25);
+  }
+
+  td {
+    color: #cceeff;
+    font-size: 1rem;
+  }
+
+  .no-prediction {
+    text-align: center;
+    font-style: italic;
+    color: #6ca0bf;
+    font-size: 1.1rem;
+    margin-top: 25px;
+  }
+
+  .back-btn {
+    display: block;
+    width: fit-content;
+    margin: 30px auto;
+    background: #1ca9c9;
+    padding: 10px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .back-btn:hover {
+    background: #1390b4;
+  }
+</style>
+
+<div class="container">
+  <h2>Your Past Predictions</h2>
+
+  {% if past_predictions %}
+  <table>
+    <thead>
+      <tr>
+        <th>Date & Time</th>
+        <th>Wind Power (kW)</th>
+        <th>Solar Power (kW)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pred in past_predictions %}
+      <tr>
+        <td>{{ pred.timestamp|date:"Y-m-d H:i" }}</td>
+        <td>{{ pred.wind_power|floatformat:2 }}</td>
+        <td>{{ pred.solar_power|floatformat:2 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="no-prediction">No past predictions found.</p>
+  {% endif %}
+
+  <a href="{% url 'dashboard' %}" class="back-btn">⬅ Back to Dashboard</a>
+</div>
+{% endblock %}
